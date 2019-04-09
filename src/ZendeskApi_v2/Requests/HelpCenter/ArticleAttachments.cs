@@ -15,11 +15,13 @@ namespace ZendeskApi_v2.Requests.HelpCenter
 #if SYNC
         GroupAttachmentResponse GetAttachments(long? articleId);
         ArticleAttachment UploadAttachment(long? articleId, ZenFile file, bool inline = false);
+        ArticleAttachment UploadAttachment(ZenFile file, bool inline = false);
         bool DeleteAttachment(long? attachmentId);
 #endif
 #if ASYNC
         Task<GroupAttachmentResponse> GetAttachmentsAsync(long? articleId);
         Task<ArticleAttachment> UploadAttachmentAsync(long? articleId, ZenFile file, bool inline = false);
+        Task<ArticleAttachment> UploadAttachmentAsync(ZenFile file, bool inline = false);
         Task<bool> DeleteAttachmentAsync(long? attachmentId);
 #endif
     }
@@ -68,6 +70,13 @@ namespace ZendeskApi_v2.Requests.HelpCenter
 
         }
 
+        public ArticleAttachment UploadAttachment(ZenFile file, bool inline = false)
+        {
+            var form = new Dictionary<string, object> { { "inline", inline }, { "file", file } };
+
+            return GenericPostForm<ArticleAttachment>($"help_center/articles/attachments.json", formParameters: form);
+        }
+
         public bool DeleteAttachment(long? attachmentId)
         {
             return GenericDelete($"help_center/articles/attachments/{attachmentId}.json");
@@ -94,6 +103,14 @@ namespace ZendeskApi_v2.Requests.HelpCenter
             var form = new Dictionary<string, object> { { "inline", inline }, { "file", file } };
 
             return GenericPostFormAsync<ArticleAttachment>($"help_center/articles/{articleId}/attachments.json", formParameters: form);
+
+        }
+
+        public Task<ArticleAttachment> UploadAttachmentAsync(ZenFile file, bool inline = false)
+        {
+            var form = new Dictionary<string, object> { { "inline", inline }, { "file", file } };
+
+            return GenericPostFormAsync<ArticleAttachment>($"help_center/articles/attachments.json", formParameters: form);
 
         }
 
