@@ -47,6 +47,39 @@ namespace Tests.HelpCenter
         }
 
         [Test]
+        public void CanUploadAttachment()
+        {
+            var file = new ZenFile()
+            {
+                ContentType = "text/plain",
+                FileName = "testupload.txt",
+                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+            };
+
+            var uploadAttachmentResponse = api.HelpCenter.ArticleAttachments.UploadAttachment(file);
+            Assert.That(uploadAttachmentResponse.Attachment, Is.Not.Null);
+
+            Assert.That(api.HelpCenter.ArticleAttachments.DeleteAttachment(uploadAttachmentResponse.Attachment.Id), Is.True);
+        }
+
+        [Test]
+        public async Task CanUploadAttachmentAsync()
+        {
+            var file = new ZenFile()
+            {
+                ContentType = "text/plain",
+                FileName = "testupload.txt",
+                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+            };
+
+            var uploadAttachmentResponse = await api.HelpCenter.ArticleAttachments.UploadAttachmentAsync(file, true);
+            Assert.That(uploadAttachmentResponse.Attachment, Is.Not.Null);
+            Assert.That(uploadAttachmentResponse.Attachment.Inline, Is.True);
+
+            Assert.That(await api.HelpCenter.ArticleAttachments.DeleteAttachmentAsync(uploadAttachmentResponse.Attachment.Id), Is.True);
+        }
+
+        [Test]
         public async Task CanUploadAttachmentsForArticleAsync()
         {
             var file = new ZenFile()
