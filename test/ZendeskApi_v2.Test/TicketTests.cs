@@ -613,7 +613,7 @@ namespace Tests
             {
                 ContentType = "text/plain",
                 FileName = "testupload.txt",
-                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+                FileData = File.ReadAllBytes(Path.Combine(TestContext.CurrentContext.TestDirectory + Path.DirectorySeparatorChar + "testupload.txt"))
             });
 
             var ticket = new Ticket()

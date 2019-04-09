@@ -25,7 +25,7 @@ namespace Tests.HelpCenter
             {
                 ContentType = "text/plain",
                 FileName = "testupload.txt",
-                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+                FileData = File.ReadAllBytes(Path.Combine(TestContext.CurrentContext.TestDirectory + Path.DirectorySeparatorChar + "testupload.txt"))
             };
 
             var articleResponse = api.HelpCenter.Articles.CreateArticle(_sectionId, new Article
@@ -53,7 +53,7 @@ namespace Tests.HelpCenter
             {
                 ContentType = "text/plain",
                 FileName = "testupload.txt",
-                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+                FileData = File.ReadAllBytes(Path.Combine(TestContext.CurrentContext.TestDirectory + Path.DirectorySeparatorChar + "testupload.txt"))
             };
 
             var uploadAttachmentResponse = api.HelpCenter.ArticleAttachments.UploadAttachment(file);
@@ -69,7 +69,7 @@ namespace Tests.HelpCenter
             {
                 ContentType = "text/plain",
                 FileName = "testupload.txt",
-                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+                FileData = File.ReadAllBytes(Path.Combine(TestContext.CurrentContext.TestDirectory + Path.DirectorySeparatorChar + "testupload.txt"))
             };
 
             var uploadAttachmentResponse = await api.HelpCenter.ArticleAttachments.UploadAttachmentAsync(file, true);
@@ -86,7 +86,7 @@ namespace Tests.HelpCenter
             {
                 ContentType = "text/plain",
                 FileName = "testupload.txt",
-                FileData = File.ReadAllBytes(TestContext.CurrentContext.TestDirectory + "\\testupload.txt")
+                FileData = File.ReadAllBytes(Path.Combine(TestContext.CurrentContext.TestDirectory + Path.DirectorySeparatorChar + "testupload.txt"))
             };
 
             var articleResponse = await api.HelpCenter.Articles.CreateArticleAsync(_sectionId, new Article
